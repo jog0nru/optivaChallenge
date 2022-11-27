@@ -1,0 +1,24 @@
+{
+  "name": "optiva-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=run nodemon --inspect=0.0.0.0 index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.28.0",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "awilix": "^8.0.0",
+  }
+}

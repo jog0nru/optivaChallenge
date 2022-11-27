@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+  optiva_challenge_api:
+    build: .
+    ports:
+      - 3000:3000
+      - 9229:9229
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: run
+    volumes:
+      - ./src:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    # command: npm run dev
+    command: tail -f index.js
+    networks:
+      - optiva
+  mongo:
+    image: mongo:5
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    networks:
+      - optiva
+  mongo-express:
+    image: mongo-express
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_SERVER: mongo
+    command: bash -c "sleep 50 && node app"
+    networks:
+      - optiva
+volumes:
+  node_modules:
+    driver: local
+networks:
+  optiva:
