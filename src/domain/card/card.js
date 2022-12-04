@@ -14,7 +14,7 @@ class Card {
   }
 
   set id(id) {
-    if (!id) {
+    if (!id || typeof id !== 'string') {
       throw new InvalidCardError('Field id cannot be set to empty');
     }
     this._id = id;
@@ -58,7 +58,7 @@ class Card {
   }
 
   set images(images) {
-    if (!images || !Array.isArray(images)) {
+    if (!images || typeof images !== 'object') {
       throw new InvalidCardError('Field images should be an array and cannot be set to empty');
     }
     this._images = images;
@@ -80,7 +80,7 @@ class Card {
   }
 
   set legalities(legalities) {
-    if (!legalities || !Array.isArray(legalities)) {
+    if (!legalities || typeof legalities !== 'object') {
       throw new InvalidCardError('Field legalities should be an array and cannot be set to empty');
     }
     this._legalities = legalities;

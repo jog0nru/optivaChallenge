@@ -22,6 +22,22 @@ describe('Card domain entity', () => {
     expect(() => new Card({id, name})).toThrow(InvalidCardError);
   });
 
+  it('should throw InvalidCardError if created without releaseDate', () => {
+    expect(() => new Card({id, name, language})).toThrow(InvalidCardError);
+  });
+
+  it('should throw InvalidCardError if created without images', () => {
+    expect(() => new Card({id, name, language, releaseDate})).toThrow(InvalidCardError);
+  });
+
+  it('should throw InvalidCardError if created without set', () => {
+    expect(() => new Card({id, name, language, releaseDate, images})).toThrow(InvalidCardError);
+  });
+
+  it('should throw InvalidCardError if created without legalities', () => {
+    expect(() => new Card({id, name, language, releaseDate, images, set})).toThrow(InvalidCardError);
+  });
+
   it('should create card properly', () => {
     const cardExpected = {id, name, language, releaseDate, set};
     const card = new Card({id, name, language, releaseDate, set, images, legalities});

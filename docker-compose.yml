@@ -13,8 +13,8 @@ services:
     volumes:
       - ./src:/usr/src/app
       - node_modules:/usr/src/app/node_modules
-    # command: npm run dev
-    command: tail -f index.js
+    command: npm run dev
+    # command: tail -f index.js
     networks:
       - optiva
   mongo:

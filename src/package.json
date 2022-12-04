@@ -8,8 +8,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "NODE_ENV=run nodemon --inspect=0.0.0.0 index.js",
-    "test": "npm run lint && NODE_ENV=test jest --collectCoverage --silent --testPathPattern=/test/unit --maxWorkers=4 --forceExit --passWithNoTests",
+    "dev": "NODE_ENV=run LOG_LEVEL=debug nodemon --inspect=0.0.0.0 index.js",
+    "test": "npm run lint && NODE_ENV=test jest --collectCoverage --silent --testPathPattern=/test/unit --maxWorkers=4 --forceExit --passWithNoTests --detectOpenHandles",
+    "test:watch": "npm run lint && NODE_ENV=test jest --collectCoverage --silent --testPathPattern=/test/unit --watch --maxWorkers=1 --forceExit",
     "lint": "eslint ."
   },
   "jest": {
@@ -22,6 +23,12 @@
       "<rootDir>/application/**/*.js",
       "<rootDir>/domain/**/*.js",
       "<rootDir>/infrastructure/**/*.js"
+    ],
+    "coveragePathIgnorePatterns" : [
+      "<rootDir>/infrastructure/persistence/mongo/document-parser.js",
+      "<rootDir>/domain/card/service/retrieve-cardsService",
+      "<rootDir>/domain/card/card-repository.js"
+
     ]
   },
   "author": "Jose Gonzalez Rubio",
@@ -34,6 +41,16 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "awilix": "^8.0.0"
+    "awilix": "^8.0.0",
+    "axios": "^1.2.0",
+    "commander": "^9.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^4.5.0",
+    "morgan": "^1.10.0",
+    "node-mocks-http": "^1.12.1",
+    "uuid-mongodb": "^2.5.1",
+    "winston": "^3.8.2"
   }
 }
