@@ -48,6 +48,7 @@ describe('MongoDB handler', () => {
       expect(spyConnect).toBeCalledTimes(1);
     });
   });
+
   describe('when disconnecting from db', () => {
     it('should disconnect correctly', async () => {
       const mongodb = require('mongodb');

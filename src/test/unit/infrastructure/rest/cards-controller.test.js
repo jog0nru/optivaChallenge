@@ -5,6 +5,7 @@ const supertest = require('supertest');
 const request = supertest(app);
 const {NOT_FOUND, SERVER_ERROR, OK} = require('../../../../infrastructure/rest/http-status-code');
 const CardNotFoundError = require('../../../../domain/card/card-not-found-error');
+jest.mock('../../../../infrastructure/process/update-database-process');
 
 describe('cards controller', () => {
   const card = {

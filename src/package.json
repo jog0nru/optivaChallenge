@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "NODE_ENV=run LOG_LEVEL=debug nodemon --inspect=0.0.0.0 index.js",
+    "dev": "NODE_ENV=run LOG_LEVEL=info nodemon --inspect=0.0.0.0 index.js",
     "test": "npm run lint && NODE_ENV=test jest --collectCoverage --silent --testPathPattern=/test/unit --maxWorkers=4 --forceExit --passWithNoTests --detectOpenHandles",
     "test:watch": "npm run lint && NODE_ENV=test jest --collectCoverage --silent --testPathPattern=/test/unit --watch --maxWorkers=1 --forceExit",
     "lint": "eslint ."

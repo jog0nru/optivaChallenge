@@ -10,10 +10,11 @@ services:
       - mongo
     environment:
       NODE_ENV: run
+      LOG_LEVEL: info
     volumes:
       - ./src:/usr/src/app
       - node_modules:/usr/src/app/node_modules
-    command: npm run dev
+    command: npm run start
     # command: tail -f index.js
     networks:
       - optiva

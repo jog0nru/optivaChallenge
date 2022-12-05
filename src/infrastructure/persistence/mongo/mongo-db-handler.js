@@ -17,9 +17,9 @@ class MongoDbHandler {
         {name: 'set', key: {set: 1}},
       ], (err, result) => {
         if (err) {
-          console.log(`There was an error while creating voices_id index due to: ${err}`);
+          this.logger.error(`There was an error while creating indexes due to: ${err}`);
         } else {
-          console.log(`Index created: ${result}`);
+          this.logger.info(`Index created: ${result}`);
         }
       });
 
