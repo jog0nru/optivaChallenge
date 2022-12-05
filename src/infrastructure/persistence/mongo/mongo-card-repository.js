@@ -9,13 +9,13 @@ class MongoCardRepository extends CardRepository {
     this.cardDocumentParser = cardDocumentParser;
     this.muuid = muuid;
     this.logger = logger;
-  }
+  };
 
   async findById(id) {
     const db = await this.mongoDbHandler.getInstance();
     const cardDocument = await db.collection(COLLECTION_NAME).findOne({_id: this.muuid.from(id)});
     return cardDocument ? this.cardDocumentParser.toDomain(cardDocument) : null;
-  }
+  };
 
   async saveOrUpdate(card) {
     const cardExistent = await this.findById(card.id);
@@ -24,7 +24,7 @@ class MongoCardRepository extends CardRepository {
     } else {
       await this.save(card);
     }
-  }
+  };
 
   async save(card) {
     const db = await this.mongoDbHandler.getInstance();
@@ -35,7 +35,7 @@ class MongoCardRepository extends CardRepository {
     } catch (err) {
       throw new Error(err.message);
     }
-  }
+  };
 
   async update(card) {
     const db = await this.mongoDbHandler.getInstance();
@@ -46,7 +46,29 @@ class MongoCardRepository extends CardRepository {
     } catch (err) {
       throw new Error(err.message);
     }
-  }
+  };
+
+  async findByParams(params) {
+    const query = {};
+    Object.keys(params).forEach((key) => {
+      if (params[key]) {
+        if (key === 'legality') {
+          query[`legalities.${params[key]}`] = 'legal';
+        } else {
+          query[key] = params[key];
+        }
+      }
+    });
+
+    const db = await this.mongoDbHandler.getInstance();
+    let cards = [];
+    try {
+      cards = await db.collection(COLLECTION_NAME).find(query).toArray();
+    } catch (err) {
+      throw new Error(err.message);
+    }
+    return cards.map((card) => this.cardDocumentParser.toDomain(card));
+  };
 }
 
 module.exports = MongoCardRepository;

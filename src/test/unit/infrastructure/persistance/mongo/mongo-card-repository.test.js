@@ -195,4 +195,55 @@ describe('Mongo card repository', () => {
     expect(updateSpy).toHaveBeenCalledTimes(1);
     expect(updateSpy).toHaveBeenCalledWith(cardDomain);
   });
+
+  it('Should return empty array when not find a document by params', async () => {
+    const findMock = jest.fn().mockReturnValue({toArray: () => []});
+    const dbMocked = {
+      collection: () => {
+        return {
+          find: findMock,
+        };
+      },
+    };
+    mongoDbHandlerMock.getInstance.mockResolvedValue(Promise.resolve(dbMocked));
+    const result = await repository.findByParams({name: 'name', set: 'set', legality: 'legality'});
+    expect(mongoDbHandlerMock.getInstance).toHaveBeenCalledTimes(1);
+    expect(findMock).toHaveBeenCalledTimes(1);
+    expect(result).toEqual([]);
+  });
+
+  it('Should return an array of cards found', async () => {
+    const findMock = jest.fn().mockReturnValue({toArray: () => [cardDocument]});
+    const dbMocked = {
+      collection: () => {
+        return {
+          find: findMock,
+        };
+      },
+    };
+    mongoDbHandlerMock.getInstance.mockResolvedValue(Promise.resolve(dbMocked));
+    const result = await repository.findByParams({name: 'name', set: 'set', legality: 'legality'});
+    expect(mongoDbHandlerMock.getInstance).toHaveBeenCalledTimes(1);
+    expect(findMock).toHaveBeenCalledTimes(1);
+    expect(result).toEqual([cardDomain]);
+  });
+
+  it('Should return an error when it fails finding documents by params', async () => {
+    cardDocumentParserMock.toDocument.mockReturnValue(cardDocument);
+    const error = 'error updating document';
+    const findMock = jest.fn().mockImplementation(() => {
+      throw new Error(error);
+    });
+    const dbMocked = {
+      collection: () => {
+        return {
+          find: findMock,
+        };
+      },
+    };
+    mongoDbHandlerMock.getInstance.mockResolvedValue(Promise.resolve(dbMocked));
+    await expect(repository.findByParams({name: 'name', set: 'set', legality: 'legality'})).rejects.toThrow(error);
+    expect(mongoDbHandlerMock.getInstance).toHaveBeenCalledTimes(1);
+    expect(findMock).toHaveBeenCalledTimes(1);
+  });
 });

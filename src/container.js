@@ -10,6 +10,7 @@ const MongoCardRepository = require('./infrastructure/persistence/mongo/mongo-ca
 const ScryfallCardProvider = require('./infrastructure/service/card/scryfall-provider');
 const RetrieveCards = require('./application/retrieve_cards');
 const GetCard = require('./application/get_card');
+const GetCardsByParams = require('./application/get_cards_by_params');
 const container = awilix.createContainer({
   injectionMode: awilix.InjectionMode.PROXY,
 });
@@ -27,6 +28,7 @@ container.register({
   retrieveCardsService: awilix.asClass(ScryfallCardProvider),
   retrieveCards: awilix.asClass(RetrieveCards),
   getCard: awilix.asClass(GetCard),
+  getCardsByParams: awilix.asClass(GetCardsByParams),
 });
 
 module.exports = container;

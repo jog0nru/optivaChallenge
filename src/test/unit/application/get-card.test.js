@@ -20,7 +20,7 @@ describe('get card', () => {
 
   afterEach(() => jest.clearAllMocks());
 
-  it('Should throw an erro if the card does not exist', () => {
+  it('Should throw an error if the card does not exist', () => {
     cardRepositoryMock.findById.mockReturnValue(null);
     const getCardCommandBuilder = new GetCardCommandBuilder({cardId: id});
     const expectedError = 'Card not found';
@@ -30,8 +30,8 @@ describe('get card', () => {
     expect(cardRepositoryMock.findById).toHaveBeenCalledWith(id);
   });
 
-  it('Should return founded card if everything goes well', async () => {
-    const cardFounded = new Card({
+  it('Should return found card if everything goes well', async () => {
+    const cardfound = new Card({
       id,
       name: 'cardName',
       language: 'cardLanguage',
@@ -41,9 +41,9 @@ describe('get card', () => {
       legalities: {legality1: 'legal'},
     });
 
-    cardRepositoryMock.findById.mockReturnValue(cardFounded);
+    cardRepositoryMock.findById.mockReturnValue(cardfound);
     const getCardCommandBuilder = new GetCardCommandBuilder({cardId: id});
-    const expectedResponse = new GetCardResponseBuilder({card: cardFounded});
+    const expectedResponse = new GetCardResponseBuilder({card: cardfound});
     const response = await getCard.get(getCardCommandBuilder);
     expect(response).toEqual(expectedResponse);
     expect(cardRepositoryMock.findById).toHaveBeenCalledTimes(1);

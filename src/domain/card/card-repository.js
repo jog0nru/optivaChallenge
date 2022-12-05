@@ -14,6 +14,10 @@ class CardRepository {
   async update(card) {
     throw new Error('Method not implemented yet!');
   }
+
+  async findByParams({name, set, lgality}) {
+    throw new Error('Method not implemented yet!');
+  }
 }
 
 module.exports = CardRepository;
