@@ -21,9 +21,12 @@ const run = {
   },
 };
 
+const MAX_PORT_NUMBER = 4000;
+const MIN_PORT_NUMBER = 3333;
+
 const test = {
   server: {
-    port: 3000,
+    port: Math.floor((Math.random() * (MAX_PORT_NUMBER - MIN_PORT_NUMBER) + MIN_PORT_NUMBER)),
   },
   app: {
     logLevel: 'debug',

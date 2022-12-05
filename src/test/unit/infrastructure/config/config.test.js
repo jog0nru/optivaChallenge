@@ -33,9 +33,6 @@ describe('Config file', () => {
     process.env.NODE_ENV = 'test';
     const actualConfig = require('../../../../infrastructure/config');
     const expectedConfig = {
-      server: {
-        port: 3000,
-      },
       app: {
         logLevel: 'debug',
         data: {
@@ -52,6 +49,6 @@ describe('Config file', () => {
         waitTimeMs: 20,
       },
     };
-    expect(actualConfig).toEqual(expectedConfig);
+    expect(actualConfig).toEqual(expect.objectContaining(expectedConfig));
   });
 });

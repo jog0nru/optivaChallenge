@@ -5,10 +5,10 @@ const Card = require('../../../../../domain/card/card');
 
 jest.mock('axios');
 
-cardRepositoryMock = {
+const cardRepositoryMock = {
   saveOrUpdate: jest.fn(),
 };
-loggerMock = {
+const loggerMock = {
   debug: jest.fn(),
   error: jest.fn(),
 };
