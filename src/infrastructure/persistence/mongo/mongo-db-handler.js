@@ -11,6 +11,18 @@ class MongoDbHandler {
           {useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: timeout});
       const db = await this.client.db(dbName);
 
+      db.collection('cards').createIndexes([
+        {name: 'name', key: {name: 1}},
+        {name: 'legality', key: {legalities: 1}},
+        {name: 'set', key: {set: 1}},
+      ], (err, result) => {
+        if (err) {
+          this.logger.error(`There was an error while creating indexes due to: ${err}`);
+        } else {
+          this.logger.info(`Index created: ${result}`);
+        }
+      });
+
       return db;
     } catch (err) {
       const error = err.message ? err.message : err;

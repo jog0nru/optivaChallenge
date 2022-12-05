@@ -8,7 +8,11 @@ function connectValue(value) {
 const client = {
   db: () => {
     return {
-      collection: () => {},
+      collection: () => {
+        return {
+          createIndexes: () => {},
+        };
+      },
     };
   },
   close: () => {},

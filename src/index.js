@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.disable('x-powered-by');
 
-// require('./infrastructure/process/update-database-process')();
+require('./infrastructure/process/update-database-process')();
 
 app.use('/api/v1/cards', cardsRoutes);
 

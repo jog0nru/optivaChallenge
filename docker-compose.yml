@@ -10,10 +10,11 @@ services:
       - mongo
     environment:
       NODE_ENV: run
+      LOG_LEVEL: info
     volumes:
       - ./src:/usr/src/app
       - node_modules:/usr/src/app/node_modules
-    command: npm run dev
+    command: npm run start
     # command: tail -f index.js
     networks:
       - optiva
@@ -38,7 +39,15 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
       ME_CONFIG_MONGODB_SERVER: mongo
-    command: bash -c "sleep 50 && node app"
+    command: bash -c "sleep 20 && node app"
+    networks:
+      - optiva
+  nginx:
+    build: frontend
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend/page:/usr/share/nginx/html
     networks:
       - optiva
 volumes:
